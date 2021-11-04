@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function doDel(uuu){
+            if(confirm('确定要删除吗？')){
+                window.location = uuu;
+            }
+        }
+    </script>
+</head>
+<body>
+<center>
+    <h1>用户信息管理</h1>
+    <a href = "{% url 'indexusers' %}">浏览信息</a> |
+    <a href = "{% url 'addusers' %}">添加信息</a>
+    <!--hr标签是水平线-->
+    <hr/>
+    <table width="800" border="1">
+     <!--tr表示表一行-->
+        <tr>
+            <!--th表示表头-->
+            <th>ID号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>电话</th>
+            <th>添加时间</th>
+            <th>操作</th>
+        </tr>
+        {% for u in userslist %}
+            <tr>
+            <!--td表示标准单元格-->
+                 <td>{{ u.id }}</td>
+                 <td>{{ u.name }}</td>
+                 <td>{{ u.age }}</td>
+                 <td>{{ u.phone }}</td>
+                 <td>{{ u.addtime }}</td>
+                 <td>
+                     <!--u.id中的u和上文中的u保持一致，因为都写在for循环里-->
+                     <a href="{% url 'editusers' u.id %}">编辑</a>
+                     <a href="Javascript:doDel('{% url 'delusers' u.id %}');">删除</a>
+                 </td>
+            </tr>
+        {% endfor %}
+    </table>
+</center>
+
+</body>
+</html>
